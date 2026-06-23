@@ -9,15 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gradient-bg: linear-gradient(135deg, #e0f2f1 0%, #f4f9f9 100%);
-            --primary: #00796b;
-            --primary-light: #00bfa5;
-            --primary-hover: #004d40;
+            --gradient-bg: linear-gradient(135deg, #e0f7f4 0%, #f4fbf9 100%);
+            --primary: #00897b;
+            --primary-light: #26a69a;
+            --primary-hover: #00695c;
             --surface: #ffffff;
             --text-main: #2c3e50;
             --text-muted: #7f8c8d;
-            --border: #e0e6e6;
-            --accent-soft: #e0f2f1;
+            --border: #e0e8e8;
+            --accent-bg: #f0fdfa;
         }
 
         * {
@@ -36,27 +36,46 @@
         }
 
         .container {
-            max-width: 700px;
+            max-width: 720px;
             margin: 0 auto;
         }
 
         header, .card {
             background: var(--surface);
             padding: 40px 35px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 121, 107, 0.04);
+            border-radius: 24px;
+            box-shadow: 0 12px 35px rgba(0, 137, 123, 0.06);
             margin-bottom: 30px;
-            border: 1px solid rgba(0, 121, 107, 0.05);
+            border: 1px solid rgba(0, 137, 123, 0.04);
             transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        /* --- ESTILO DEL CONTADOR (SÓLO NÚMEROS) --- */
+        .counter-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #26a69a 0%, #00897b 100%);
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 6px 18px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 137, 123, 0.25);
+            letter-spacing: 0.5px;
+            display: inline-block;
         }
 
         header h1 {
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             color: var(--primary);
             margin-bottom: 20px;
             text-align: center;
             font-weight: 700;
             letter-spacing: -0.5px;
+            margin-top: 10px;
         }
 
         .subtitle-research {
@@ -65,7 +84,7 @@
             color: var(--text-main);
             margin-bottom: 25px;
             text-align: center;
-            line-height: 1.5;
+            line-height: 1.6;
             padding: 0 10px;
         }
 
@@ -73,10 +92,10 @@
             font-size: 0.95rem;
             color: var(--text-muted);
             text-align: justify;
-            background-color: var(--background);
+            background-color: var(--accent-bg);
             border-left: 4px solid var(--primary-light);
-            padding: 15px 20px;
-            border-radius: 4px 12px 12px 4px;
+            padding: 18px 22px;
+            border-radius: 6px 16px 16px 6px;
             margin-bottom: 30px;
             line-height: 1.7;
         }
@@ -86,34 +105,31 @@
             color: var(--primary);
             font-weight: 700;
             margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         h3 {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--primary-hover);
             margin: 35px 0 15px 0;
             font-weight: 600;
-            background: rgba(0, 191, 165, 0.1);
-            padding: 8px 15px;
-            border-radius: 8px;
+            background: rgba(38, 166, 154, 0.12);
+            padding: 8px 16px;
+            border-radius: 10px;
             display: inline-block;
         }
 
-        /* Ocultar secciones por defecto para el sistema por pasos */
+        /* Sistema por pasos */
         .step-section {
             display: none;
         }
         
         .step-section.active {
             display: block;
-            animation: fadeIn 0.4s ease-in-out;
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -137,26 +153,26 @@
         }
 
         .form-group input, .form-group select {
-            padding: 12px 16px;
+            padding: 14px 18px;
             border: 2px solid var(--border);
-            border-radius: 12px;
+            border-radius: 14px;
             font-family: inherit;
             font-size: 0.95rem;
             color: var(--text-main);
-            background-color: #fcfdfe;
-            transition: all 0.2s ease;
+            background-color: #fdfefe;
+            transition: all 0.25s ease;
         }
 
         .form-group input:focus, .form-group select:focus {
             outline: none;
             border-color: var(--primary-light);
             background-color: #fff;
-            box-shadow: 0 4px 12px rgba(0, 191, 165, 0.1);
+            box-shadow: 0 5px 15px rgba(38, 166, 154, 0.15);
         }
 
         /* Ítems del Cuestionario */
         .item-row {
-            padding: 24px 0;
+            padding: 26px 0;
             border-bottom: 1px solid var(--border);
         }
 
@@ -166,9 +182,9 @@
 
         .item-text {
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             display: block;
-            font-size: 1rem;
+            font-size: 1.05rem;
             color: var(--text-main);
         }
 
@@ -187,37 +203,37 @@
             font-weight: 500;
             color: var(--text-muted);
             cursor: pointer;
-            padding: 12px 6px;
+            padding: 14px 8px;
             border: 2px solid var(--border);
-            border-radius: 12px;
-            background-color: #fcfdfe;
-            transition: all 0.25s ease;
+            border-radius: 14px;
+            background-color: #fdfefe;
+            transition: all 0.2s ease;
         }
 
         .option-label:hover {
             border-color: var(--primary-light);
             color: var(--primary);
-            background-color: rgba(0, 191, 165, 0.02);
+            background-color: rgba(38, 166, 154, 0.02);
+            transform: translateY(-1px);
         }
 
         .option-label input {
             margin-bottom: 8px;
             width: 20px;
             height: 20px;
-            accent-color: var(--primary-light);
+            accent-color: var(--primary);
             cursor: pointer;
         }
 
-        /* Estado seleccionado dinámico usando CSS */
         .option-label:has(input:checked) {
             border-color: var(--primary);
-            background-color: rgba(0, 121, 107, 0.06);
+            background-color: rgba(0, 137, 123, 0.08);
             color: var(--primary-hover);
             font-weight: 600;
-            box-shadow: 0 4px 10px rgba(0, 121, 107, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 137, 123, 0.08);
         }
 
-        /* Botones */
+        /* Botonera */
         .btn-container {
             text-align: center;
             margin-top: 20px;
@@ -227,19 +243,19 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
             border: none;
-            padding: 16px 40px;
-            font-size: 1rem;
+            padding: 18px 40px;
+            font-size: 1.05rem;
             font-weight: 600;
-            border-radius: 14px;
+            border-radius: 16px;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(0, 121, 107, 0.15);
-            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 137, 123, 0.18);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             width: 100%;
         }
 
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 121, 107, 0.25);
+            box-shadow: 0 8px 25px rgba(0, 137, 123, 0.28);
         }
 
         button:active {
@@ -276,14 +292,13 @@
             gap: 15px;
         }
 
-        /* Adaptación perfecta a Móviles */
         @media (max-width: 600px) {
             body {
                 padding: 15px 10px;
             }
             header, .card {
                 padding: 30px 20px;
-                border-radius: 16px;
+                border-radius: 20px;
             }
             .options-group {
                 grid-template-columns: 1fr;
@@ -292,7 +307,7 @@
             .option-label {
                 flex-direction: row;
                 justify-content: flex-start;
-                padding: 12px 16px;
+                padding: 14px 18px;
                 font-size: 0.95rem;
             }
             .option-label input {
@@ -316,6 +331,8 @@
 <div class="container">
     
     <header id="seccion-consentimiento" class="step-section active">
+        <div class="counter-badge" id="contador-respuestas">0</div>
+
         <h1>CUESTIONARIO DE INVESTIGACIÓN</h1>
         <p class="subtitle-research">
             <strong>Estudio:</strong> Factores terapéuticos y adherencia al tratamiento antirretroviral en pacientes adultos con VIH atendidos en el Centro de Salud Materno Infantil El Progreso, Carabayllo, Lima, 2026.
@@ -334,7 +351,7 @@
         
         <section id="seccion-sociodemografica" class="card step-section">
             <h2>II. Ficha Sociodemográfica</h2>
-            <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:25px;">Por favor, complete los datos según corresponda para empezar:</p>
+            <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:25px;">Por favor, completa los siguientes datos para comenzar el cuestionario:</p>
             <div class="grid-form">
                 <div class="form-group">
                     <label for="edad">Edad (años):</label>
@@ -396,7 +413,7 @@
         <section id="seccion-instrumento1" class="card step-section">
             <h2>III. Instrumento 1: Factores Terapéuticos</h2>
             <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">
-                Instrucciones: Seleccione la opción que mejor represente su situación actual.
+                Instrucciones: Seleccione la opción que mejor represente su situación actual (1 = Nunca a 5 = Siempre).
             </p>
 
             <h3>Dimensión: Factores Clínicos</h3>
@@ -563,7 +580,7 @@
         <section id="seccion-instrumento2" class="card step-section">
             <h2>IV. Instrumento 2: Adherencia al Tratamiento</h2>
             <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">
-                Instrucciones: Seleccione la opción que mejor represente su situación actual.
+                Instrucciones: Seleccione la opción que mejor represente su situación actual (1 = Nunca a 5 = Siempre).
             </p>
 
             <h3>Dimensión: Cumplimiento Farmacológico</h3>
@@ -588,7 +605,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">3. ¿Continúa tomando aunque se sienta bien?</span>
+                <span class="item-text">3. ¿Continúa tomando aunque se sientan bien?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="a3" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a3" value="2"><span>Casi nunca</span></label>
@@ -732,8 +749,24 @@
 </div>
 
 <script>
-    // URL DE TU GOOGLE APPS SCRIPT (Reemplaza con el tuyo si es necesario)
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzyBBnFSoezixtnHE0K3ywQBZ3FTK_pe8ERTF75RyLovsKnYriBV0NJhQD0nu4jo6t2/exec'; 
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx9T93A8c5NFRbqbL2S9QyLWlosh6qK_NPQBqvHbm-8Urt6Tcg6OAnpQOvK9Y0KOR1H/exec'; 
+
+    // Función para cargar de forma segura el contador dinámico desde Google Sheets
+    function obtenerContador() {
+        fetch(`${WEB_APP_URL}?action=getCounter`)
+        .then(response => response.json())
+        .then(data => {
+            if(data && data.total !== undefined) {
+                document.getElementById('contador-respuestas').innerText = data.total;
+            }
+        })
+        .catch(error => {
+            console.error('Error al obtener el contador:', error);
+        });
+    }
+
+    // Inicializar la carga del contador al renderizar el documento
+    window.addEventListener('DOMContentLoaded', obtenerContador);
 
     function cambiarPaso(seccionId) {
         document.querySelectorAll('.step-section').forEach(sec => sec.classList.remove('active'));
@@ -800,6 +833,11 @@
         .then(() => {
             alert('¡Cuestionario enviado con éxito! Muchas gracias por su valiosa participación.');
             document.getElementById('investigacionForm').reset();
+            
+            // Incremento estético automático e inmediato tras guardar la respuesta
+            const currentCount = parseInt(document.getElementById('contador-respuestas').innerText) || 0;
+            document.getElementById('contador-respuestas').innerText = currentCount + 1;
+            
             cambiarPaso('seccion-consentimiento');
         })
         .catch(error => {
