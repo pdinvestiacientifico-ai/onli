@@ -6,16 +6,18 @@
     <title>Cuestionario de Investigación</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
+            --gradient-bg: linear-gradient(135deg, #e0f2f1 0%, #f4f9f9 100%);
             --primary: #00796b;
+            --primary-light: #00bfa5;
             --primary-hover: #004d40;
-            --background: #f0f4f4;
             --surface: #ffffff;
-            --text-main: #263238;
-            --text-muted: #546e7a;
-            --border: #cfd8dc;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --border: #e0e6e6;
+            --accent-soft: #e0f2f1;
         }
 
         * {
@@ -25,55 +27,79 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--background);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--gradient-bg);
             color: var(--text-main);
             line-height: 1.6;
-            padding: 20px 10px;
+            padding: 40px 15px;
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 750px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
         header, .card {
             background: var(--surface);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            margin-bottom: 24px;
+            padding: 40px 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 121, 107, 0.04);
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 121, 107, 0.05);
+            transition: transform 0.3s ease;
         }
 
         header h1 {
-            font-size: 1.4rem;
+            font-size: 1.8rem;
             color: var(--primary);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             text-align: center;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle-research {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 25px;
+            text-align: center;
+            line-height: 1.5;
+            padding: 0 10px;
         }
 
         .consent-text {
             font-size: 0.95rem;
             color: var(--text-muted);
             text-align: justify;
-            border-left: 4px solid var(--primary);
-            padding-left: 15px;
-            margin-bottom: 20px;
+            background-color: var(--background);
+            border-left: 4px solid var(--primary-light);
+            padding: 15px 20px;
+            border-radius: 4px 12px 12px 4px;
+            margin-bottom: 30px;
+            line-height: 1.7;
         }
 
         h2 {
-            font-size: 1.25rem;
+            font-size: 1.4rem;
             color: var(--primary);
-            border-bottom: 2px solid #e0f2f1;
-            padding-bottom: 8px;
-            margin-bottom: 20px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         h3 {
-            font-size: 1.05rem;
-            color: #004d40;
-            margin: 25px 0 10px 0;
-            padding-left: 5px;
+            font-size: 1.1rem;
+            color: var(--primary-hover);
+            margin: 35px 0 15px 0;
+            font-weight: 600;
+            background: rgba(0, 191, 165, 0.1);
+            padding: 8px 15px;
+            border-radius: 8px;
+            display: inline-block;
         }
 
         /* Ocultar secciones por defecto para el sistema por pasos */
@@ -83,13 +109,19 @@
         
         .step-section.active {
             display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Ficha Sociodemográfica */
         .grid-form {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
         }
 
         .form-group {
@@ -98,99 +130,144 @@
         }
 
         .form-group label {
-            font-weight: 500;
-            margin-bottom: 6px;
+            font-weight: 600;
+            margin-bottom: 8px;
             font-size: 0.9rem;
+            color: var(--text-main);
         }
 
         .form-group input, .form-group select {
-            padding: 10px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
             font-family: inherit;
             font-size: 0.95rem;
+            color: var(--text-main);
+            background-color: #fcfdfe;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            background-color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 191, 165, 0.1);
         }
 
         /* Ítems del Cuestionario */
         .item-row {
-            padding: 18px 10px;
-            border-bottom: 1px solid #eceff1;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
         }
 
-        .item-row:nth-child(even) {
-            background-color: #fbfcfc;
+        .item-row:last-of-type {
+            border-bottom: none;
         }
 
         .item-text {
-            font-weight: 500;
-            margin-bottom: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
             display: block;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            color: var(--text-main);
         }
 
         .options-group {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 5px;
-            text-align: center;
+            gap: 10px;
         }
 
         .option-label {
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-size: 0.75rem;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 500;
             color: var(--text-muted);
             cursor: pointer;
+            padding: 12px 6px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background-color: #fcfdfe;
+            transition: all 0.25s ease;
+        }
+
+        .option-label:hover {
+            border-color: var(--primary-light);
+            color: var(--primary);
+            background-color: rgba(0, 191, 165, 0.02);
         }
 
         .option-label input {
-            margin-bottom: 6px;
-            width: 18px;
-            height: 18px;
+            margin-bottom: 8px;
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-light);
             cursor: pointer;
         }
 
-        /* Botones de Navegación */
+        /* Estado seleccionado dinámico usando CSS */
+        .option-label:has(input:checked) {
+            border-color: var(--primary);
+            background-color: rgba(0, 121, 107, 0.06);
+            color: var(--primary-hover);
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0, 121, 107, 0.05);
+        }
+
+        /* Botones */
         .btn-container {
             text-align: center;
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
         button {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: white;
             border: none;
-            padding: 15px 45px;
+            padding: 16px 40px;
             font-size: 1rem;
             font-weight: 600;
-            border-radius: 8px;
+            border-radius: 14px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 121, 107, 0.2);
-            transition: background 0.2s;
+            box-shadow: 0 6px 20px rgba(0, 121, 107, 0.15);
+            transition: all 0.3s ease;
             width: 100%;
         }
 
         button:hover {
-            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 121, 107, 0.25);
+        }
+
+        button:active {
+            transform: translateY(0);
         }
 
         .btn-secondary {
-            background-color: #cfd8dc;
-            color: #37474f;
-            margin-top: 10px;
+            background: #fff;
+            color: var(--text-muted);
+            border: 2px solid var(--border);
+            margin-top: 12px;
             box-shadow: none;
         }
         .btn-secondary:hover {
-            background-color: #b0bec5;
+            background-color: #fafbfc;
+            border-color: #b0bec5;
+            color: var(--text-main);
+            transform: none;
+            box-shadow: none;
         }
 
         #loading {
             display: none;
-            margin-top: 15px;
+            margin-top: 20px;
             color: var(--primary);
             font-weight: 600;
             text-align: center;
+            font-size: 0.95rem;
         }
 
         .consent-buttons {
@@ -199,23 +276,37 @@
             gap: 15px;
         }
 
+        /* Adaptación perfecta a Móviles */
         @media (max-width: 600px) {
+            body {
+                padding: 15px 10px;
+            }
+            header, .card {
+                padding: 30px 20px;
+                border-radius: 16px;
+            }
             .options-group {
                 grid-template-columns: 1fr;
-                text-align: left;
-                gap: 12px;
-                padding-left: 5px;
+                gap: 8px;
             }
             .option-label {
                 flex-direction: row;
-                font-size: 0.9rem;
+                justify-content: flex-start;
+                padding: 12px 16px;
+                font-size: 0.95rem;
             }
             .option-label input {
                 margin-bottom: 0;
-                margin-right: 12px;
+                margin-right: 14px;
+                width: 22px;
+                height: 22px;
             }
             .consent-buttons {
                 grid-template-columns: 1fr;
+            }
+            h3 {
+                display: block;
+                text-align: center;
             }
         }
     </style>
@@ -226,12 +317,12 @@
     
     <header id="seccion-consentimiento" class="step-section active">
         <h1>CUESTIONARIO DE INVESTIGACIÓN</h1>
-        <p style="font-size:0.9rem; font-weight:600; color:var(--primary); margin-bottom:10px; text-align:center;">
-            Título: Factores terapéuticos y adherencia al tratamiento antirretroviral en pacientes adultos con VIH atendidos en el Centro de Salud Materno Infantil El Progreso, Carabayllo, Lima, 2026. [cite: 2]
+        <p class="subtitle-research">
+            <strong>Estudio:</strong> Factores terapéuticos y adherencia al tratamiento antirretroviral en pacientes adultos con VIH atendidos en el Centro de Salud Materno Infantil El Progreso, Carabayllo, Lima, 2026.
         </p>
-        <h2>I. CONSENTIMIENTO INFORMADO </h2>
+        <h2>I. Consentimiento Informado</h2>
         <p class="consent-text">
-            Se le invita a participar en este estudio académico para determinar la relación entre los factores terapéuticos y la adherencia al tratamiento antirretroviral. [cite: 4] Su participación es voluntaria, anónima y los riesgos son mínimos. [cite: 5] La información será tratada con estricta reserva, utilizándose únicamente para fines de investigación. [cite: 6] Al responder este cuestionario, usted acepta participar voluntariamente y autoriza el uso de su información para los fines del estudio. [cite: 7]
+            Se le invita a participar en este estudio académico para determinar la relación entre los factores terapéuticos y la adherencia al tratamiento antirretroviral. Su participación es voluntaria, anónima y los riesgos son mínimos. La información será tratada con estricta reserva, utilizándose únicamente para fines de investigación. Al responder este cuestionario, usted acepta participar voluntariamente y autoriza el uso de su información para los fines del estudio.
         </p>
         <div class="consent-buttons">
             <button type="button" onclick="aceptarConsentimiento()">Sí, acepto participar</button>
@@ -242,15 +333,15 @@
     <form id="investigacionForm">
         
         <section id="seccion-sociodemografica" class="card step-section">
-            <h2>II. Ficha Sociodemográfica </h2>
-            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:15px;">Por favor, marque o escriba según corresponda: [cite: 9]</p>
+            <h2>II. Ficha Sociodemográfica</h2>
+            <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:25px;">Por favor, complete los datos según corresponda para empezar:</p>
             <div class="grid-form">
                 <div class="form-group">
-                    <label for="edad">Edad (años): [cite: 10]</label>
-                    <input type="number" id="edad" name="edad" required min="18" max="100">
+                    <label for="edad">Edad (años):</label>
+                    <input type="number" id="edad" name="edad" required min="18" max="100" placeholder="Ej. 25">
                 </div>
                 <div class="form-group">
-                    <label for="sexo">Sexo: [cite: 11]</label>
+                    <label for="sexo">Sexo:</label>
                     <select id="sexo" name="sexo" required>
                         <option value="">Seleccione...</option>
                         <option value="Masculino">Masculino</option>
@@ -258,7 +349,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="grado_instruccion">Grado de Instrucción: [cite: 12]</label>
+                    <label for="grado_instruccion">Grado de Instrucción:</label>
                     <select id="grado_instruccion" name="grado_instruccion" required>
                         <option value="">Seleccione...</option>
                         <option value="Primaria">Primaria</option>
@@ -267,7 +358,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="estado_civil">Estado Civil: [cite: 13]</label>
+                    <label for="estado_civil">Estado Civil:</label>
                     <select id="estado_civil" name="estado_civil" required>
                         <option value="">Seleccione...</option>
                         <option value="Soltero">Soltero</option>
@@ -276,7 +367,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="situacion_laboral">Situación Laboral: [cite: 14]</label>
+                    <label for="situacion_laboral">Situación Laboral:</label>
                     <select id="situacion_laboral" name="situacion_laboral" required>
                         <option value="">Seleccione...</option>
                         <option value="Empleado">Empleado</option>
@@ -285,32 +376,32 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="tiempo_vih">Tiempo con diagnóstico VIH (años): [cite: 15]</label>
-                    <input type="number" id="tiempo_vih" name="tiempo_vih" required min="0" step="0.1">
+                    <label for="tiempo_vih">Tiempo con diagnóstico VIH (años):</label>
+                    <input type="number" id="tiempo_vih" name="tiempo_vih" required min="0" step="0.1" placeholder="Ej. 2">
                 </div>
                 <div class="form-group">
-                    <label for="tiempo_tarv">Tiempo en tratamiento (TARV): [cite: 16]</label>
-                    <input type="text" id="tiempo_tarv" name="tiempo_tarv" placeholder="Ej: 2 años o 6 meses" required>
+                    <label for="tiempo_tarv">Tiempo en tratamiento (TARV):</label>
+                    <input type="text" id="tiempo_tarv" name="tiempo_tarv" placeholder="Ej. 2 años o 6 meses" required>
                 </div>
                 <div class="form-group">
-                    <label for="distrito">Distrito de residencia: [cite: 17]</label>
-                    <input type="text" id="distrito" name="distrito" required>
+                    <label for="distrito">Distrito de residencia:</label>
+                    <input type="text" id="distrito" name="distrito" placeholder="Ej. Carabayllo" required>
                 </div>
             </div>
-            <div class="btn-container" style="margin-top:30px;">
+            <div class="btn-container" style="margin-top:35px;">
                 <button type="button" onclick="irAInstrumento1()">Siguiente Sección</button>
             </div>
         </section>
 
         <section id="seccion-instrumento1" class="card step-section">
-            <h2>III. Instrumento 1: Factores Terapéuticos </h2>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
-                Instrucciones: Marque la opción que mejor represente su situación actual (1=Nunca a 5=Siempre). [cite: 19, 20]
+            <h2>III. Instrumento 1: Factores Terapéuticos</h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">
+                Instrucciones: Seleccione la opción que mejor represente su situación actual.
             </p>
 
-            <h3>Dimensión: Factores Clínicos [cite: 21]</h3>
+            <h3>Dimensión: Factores Clínicos</h3>
             <div class="item-row">
-                <span class="item-text">1. ¿Los efectos secundarios le generan molestias? [cite: 21]</span>
+                <span class="item-text">1. ¿Los efectos secundarios le generan molestias?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="f1" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="f1" value="2"><span>Casi nunca</span></label>
@@ -320,7 +411,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">2. ¿Infecciones/enfermedades afectan su tratamiento? [cite: 21]</span>
+                <span class="item-text">2. ¿Infecciones/enfermedades afectan su tratamiento?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="f2" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="f2" value="2"><span>Casi nunca</span></label>
@@ -330,7 +421,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">3. ¿El cansancio dificulta asistir a controles? [cite: 21]</span>
+                <span class="item-text">3. ¿El cansancio dificulta asistir a controles?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="f3" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="f3" value="2"><span>Casi nunca</span></label>
@@ -340,7 +431,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">4. ¿Si se siente mejor, piensa en dejar el tratamiento? [cite: 21]</span>
+                <span class="item-text">4. ¿Si se siente mejor, piensa en dejar el tratamiento?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="f4" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="f4" value="2"><span>Casi nunca</span></label>
@@ -350,7 +441,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">5. ¿La cantidad de medicamentos es difícil de manejar? [cite: 21]</span>
+                <span class="item-text">5. ¿La cantidad de medicamentos es difícil de manejar?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="f5" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="f5" value="2"><span>Casi nunca</span></label>
@@ -360,9 +451,9 @@
                 </div>
             </div>
 
-            <h3>Dimensión: Factores Psicosociales [cite: 21]</h3>
+            <h3>Dimensión: Factores Psicosociales</h3>
             <div class="item-row">
-                <span class="item-text">6. ¿Estrés, tristeza o preocupación afectan su continuidad? [cite: 21]</span>
+                <span class="item-text">6. ¿Estrés, tristeza o preocupación afectan su continuidad?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="f6" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="f6" value="2"><span>Casi nunca</span></label>
@@ -372,7 +463,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">7. ¿Recibe apoyo emocional de familia o cercanos? [cite: 21]</span>
+                <span class="item-text">7. ¿Recibe apoyo emocional de familia o cercanos?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="f7" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="f7" value="2"><span>Casi nunca</span></label>
@@ -382,7 +473,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">8. ¿El miedo al rechazo o discriminación influye? [cite: 21]</span>
+                <span class="item-text">8. ¿El miedo al rechazo o discriminación influye?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="f8" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="f8" value="2"><span>Casi nunca</span></label>
@@ -392,7 +483,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">9. ¿Se siente motivado a continuar por su salud? [cite: 21]</span>
+                <span class="item-text">9. ¿Se siente motivado a continuar por su salud?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="f9" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="f9" value="2"><span>Casi nunca</span></label>
@@ -402,7 +493,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">10. ¿Puede continuar pese a problemas personales? [cite: 21]</span>
+                <span class="item-text">10. ¿Puede continuar pese a problemas personales?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="f10" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="f10" value="2"><span>Casi nunca</span></label>
@@ -412,9 +503,9 @@
                 </div>
             </div>
 
-            <h3>Dimensión: Factores Institucionales [cite: 21]</h3>
+            <h3>Dimensión: Factores Institucionales</h3>
             <div class="item-row">
-                <span class="item-text">11. ¿El horario de atención le facilita asistir? [cite: 21]</span>
+                <span class="item-text">11. ¿El horario de atención le facilita asistir?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="f11" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="f11" value="2"><span>Casi nunca</span></label>
@@ -424,7 +515,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">12. ¿Recibe sus medicamentos oportunamente? [cite: 21]</span>
+                <span class="item-text">12. ¿Recibe sus medicamentos oportunamente?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="f12" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="f12" value="2"><span>Casi nunca</span></label>
@@ -434,7 +525,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">13. ¿El personal le brinda atención respetuosa? [cite: 21]</span>
+                <span class="item-text">13. ¿El personal le brinda atención respetuosa?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="f13" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="f13" value="2"><span>Casi nunca</span></label>
@@ -444,7 +535,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">14. ¿Recibe orientación clara sobre su tratamiento? [cite: 21]</span>
+                <span class="item-text">14. ¿Recibe orientación clara sobre su tratamiento?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="f14" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="f14" value="2"><span>Casi nunca</span></label>
@@ -454,7 +545,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">15. ¿Siente confianza y privacidad en el servicio? [cite: 21]</span>
+                <span class="item-text">15. ¿Siente confianza y privacidad en el servicio?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="f15" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="f15" value="2"><span>Casi nunca</span></label>
@@ -464,20 +555,20 @@
                 </div>
             </div>
 
-            <div class="btn-container" style="margin-top:30px;">
+            <div class="btn-container" style="margin-top:35px;">
                 <button type="button" onclick="irAInstrumento2()">Siguiente Cuestionario</button>
             </div>
         </section>
 
         <section id="seccion-instrumento2" class="card step-section">
-            <h2>IV. Instrumento 2: Adherencia al Tratamiento </h2>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
-                Instrucciones: Marque la opción que mejor represente su situación actual (1=Nunca a 5=Siempre). [cite: 23, 24]
+            <h2>IV. Instrumento 2: Adherencia al Tratamiento</h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">
+                Instrucciones: Seleccione la opción que mejor represente su situación actual.
             </p>
 
-            <h3>Dimensión: Cumplimiento Farmacológico [cite: 25]</h3>
+            <h3>Dimensión: Cumplimiento Farmacológico</h3>
             <div class="item-row">
-                <span class="item-text">1. ¿Toma sus medicamentos en el horario indicado? [cite: 25]</span>
+                <span class="item-text">1. ¿Toma sus medicamentos en el horario indicado?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="a1" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a1" value="2"><span>Casi nunca</span></label>
@@ -487,9 +578,9 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">2. ¿Toma la cantidad completa indicada? [cite: 25]</span>
+                <span class="item-text">2. ¿Toma la cantidad completa indicada?</span>
                 <div class="options-group">
-                    <label class="option-label"><input type="radio" name="a2" value="1" required><span>Never</span></label>
+                    <label class="option-label"><input type="radio" name="a2" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a2" value="2"><span>Casi nunca</span></label>
                     <label class="option-label"><input type="radio" name="a2" value="3"><span>A veces</span></label>
                     <label class="option-label"><input type="radio" name="a2" value="4"><span>Casi siempre</span></label>
@@ -497,7 +588,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">3. ¿Continúa tomando aunque se sienta bien? [cite: 25]</span>
+                <span class="item-text">3. ¿Continúa tomando aunque se sienta bien?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="a3" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a3" value="2"><span>Casi nunca</span></label>
@@ -507,7 +598,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">4. ¿Recuerda tomar sus medicamentos diariamente? [cite: 25]</span>
+                <span class="item-text">4. ¿Recuerda tomar sus medicamentos diariamente?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="a4" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a4" value="2"><span>Casi nunca</span></label>
@@ -517,7 +608,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">5. ¿Lleva sus medicamentos consigo al salir o viajar? [cite: 25]</span>
+                <span class="item-text">5. ¿Lleva sus medicamentos consigo al salir o viajar?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="a5" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a5" value="2"><span>Casi nunca</span></label>
@@ -527,9 +618,9 @@
                 </div>
             </div>
 
-            <h3>Dimensión: Continuidad del Tratamiento [cite: 25]</h3>
+            <h3>Dimensión: Continuidad del Tratamiento</h3>
             <div class="item-row">
-                <span class="item-text">6. ¿Asiste a sus citas y controles en fechas programadas? [cite: 25]</span>
+                <span class="item-text">6. ¿Asiste a sus citas y controles en fechas programadas?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="a6" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a6" value="2"><span>Casi nunca</span></label>
@@ -539,7 +630,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">7. ¿Recoge medicamentos en las fechas indicadas? [cite: 25]</span>
+                <span class="item-text">7. ¿Recoge medicamentos en las fechas indicadas?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="a7" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a7" value="2"><span>Casi nunca</span></label>
@@ -549,7 +640,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">8. ¿Mantiene el tratamiento sin abandonarlo? [cite: 25]</span>
+                <span class="item-text">8. ¿Mantiene el tratamiento sin abandonarlo?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="a8" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a8" value="2"><span>Casi nunca</span></label>
@@ -559,7 +650,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">9. ¿Sigue las recomendaciones del personal de salud? [cite: 25]</span>
+                <span class="item-text">9. ¿Sigue las recomendaciones del personal de salud?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="a9" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a9" value="2"><span>Casi nunca</span></label>
@@ -569,7 +660,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">10. ¿Considera importante asistir a sus controles? [cite: 25]</span>
+                <span class="item-text">10. ¿Considera importante asistir a sus controles?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="a10" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a10" value="2"><span>Casi nunca</span></label>
@@ -579,9 +670,9 @@
                 </div>
             </div>
 
-            <h3>Dimensión: Autocuidado y Compromiso [cite: 25]</h3>
+            <h3>Dimensión: Autocuidado y Compromiso</h3>
             <div class="item-row">
-                <span class="item-text">11. ¿Realiza acciones para cuidar su salud diariamente? [cite: 25]</span>
+                <span class="item-text">11. ¿Realiza acciones para cuidar su salud diariamente?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="a11" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a11" value="2"><span>Casi nunca</span></label>
@@ -591,7 +682,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">12. ¿Mantiene hábitos saludables para su tratamiento? [cite: 25]</span>
+                <span class="item-text">12. ¿Mantiene hábitos saludables para su tratamiento?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="a12" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a12" value="2"><span>Casi nunca</span></label>
@@ -601,7 +692,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">13. ¿Considera importante continuar el tratamiento? [cite: 25]</span>
+                <span class="item-text">13. ¿Considera importante continuar el tratamiento?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="a13" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a13" value="2"><span>Casi nunca</span></label>
@@ -611,7 +702,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">14. ¿Busca orientación cuando tiene dudas? [cite: 25]</span>
+                <span class="item-text">14. ¿Busca orientación cuando tiene dudas?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="a14" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a14" value="2"><span>Casi nunca</span></label>
@@ -621,7 +712,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">15. ¿Se siente comprometido con su vida y bienestar? [cite: 25]</span>
+                <span class="item-text">15. ¿Se siente comprometido con su vida y bienestar?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="a15" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a15" value="2"><span>Casi nunca</span></label>
@@ -631,7 +722,7 @@
                 </div>
             </div>
 
-            <div class="btn-container" style="margin-top:30px;">
+            <div class="btn-container" style="margin-top:35px;">
                 <button type="submit" id="submitBtn">Finalizar y Enviar Cuestionario</button>
                 <div id="loading">Enviando respuestas de forma segura... por favor espere.</div>
             </div>
@@ -641,8 +732,8 @@
 </div>
 
 <script>
-    // URL DE TU GOOGLE APPS SCRIPT (Reemplaza con el tuyo)
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyf5jWBIcKr86HQiifpVurZxjZc0XFymEPMvw3_pr86ylq-ru9LeW4rcGxOCZWpRQZV/exec'; 
+    // URL DE TU GOOGLE APPS SCRIPT (Reemplaza con el tuyo si es necesario)
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzyBBnFSoezixtnHE0K3ywQBZ3FTK_pe8ERTF75RyLovsKnYriBV0NJhQD0nu4jo6t2/exec'; 
 
     function cambiarPaso(seccionId) {
         document.querySelectorAll('.step-section').forEach(sec => sec.classList.remove('active'));
@@ -658,7 +749,6 @@
         alert("Para participar en la investigación es necesario aceptar el consentimiento informado. Gracias.");
     }
 
-    // Validar campos sociodemográficos antes de ir al Instrumento 1
     function irAInstrumento1() {
         const inputs = document.querySelectorAll('#seccion-sociodemografica input, #seccion-sociodemografica select');
         let valido = true;
@@ -671,7 +761,6 @@
         if (valido) cambiarPaso('seccion-instrumento1');
     }
 
-    // Validar Instrumento 1 antes de ir al Instrumento 2
     function irAInstrumento2() {
         const radios = document.querySelectorAll('#seccion-instrumento1 input[type="radio"]');
         const nombresUnicos = [...new Set(Array.from(radios).map(r => r.name))];
@@ -688,7 +777,6 @@
         if (valido) cambiarPaso('seccion-instrumento2');
     }
 
-    // Envío seguro a Google Sheets con corrección de alerta CORS
     document.getElementById('investigacionForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -701,7 +789,6 @@
         const formData = new FormData(this);
         const urlParams = new URLSearchParams(formData);
 
-        // 'no-cors' previene el error falso de JavaScript ocasionado por el redireccionamiento de Google
         fetch(WEB_APP_URL, {
             method: 'POST',
             body: urlParams,
@@ -711,7 +798,6 @@
             }
         })
         .then(() => {
-            // Ya que 'no-cors' no deja leer el texto de éxito ("Éxito"), asumimos el éxito directo al no haber gatillado un crash de red
             alert('¡Cuestionario enviado con éxito! Muchas gracias por su valiosa participación.');
             document.getElementById('investigacionForm').reset();
             cambiarPaso('seccion-consentimiento');
