@@ -3,406 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RECORDAR CITAS - DIT 🧸</title>
+    <title>Encuesta de Salud - Centro El Progreso</title>
     <style>
-        :root { 
-            --primary: #4A90E2; 
-            --secondary: #FFB3BA; 
-            --accent: #50E3C2; 
-            --wa: #25D366; 
-            --dark: #2C3E50; 
-            --error: #FF6B6B;
-            --background: #FFF9E6;
-        }
-        
-        * { box-sizing: border-box; }
-        
-        body { 
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
-            background-color: var(--background); 
-            margin: 0; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        /* Fondo divertido con degradado pastel */
-        .bg-gradient {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            background: linear-gradient(135deg, #FFF9E6 0%, #E8F0FE 50%, #FFE5EC 100%);
-        }
-
-        .card { 
-            background: rgba(255, 255, 255, 0.95); 
-            padding: 30px; 
-            border-radius: 30px; 
-            width: 100%; 
-            max-width: 500px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08); 
-            border: 4px solid #FFD1DC;
-        }
-        
-        h2 { 
-            color: var(--primary); 
-            text-align: center; 
-            text-transform: uppercase; 
-            font-weight: 800; 
-            font-size: 22px; 
-            margin-top: 0;
-            margin-bottom: 25px; 
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        
-        .filtros { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 12px; 
-            background: #F9FAFC; 
-            padding: 20px; 
-            border-radius: 20px; 
-            border: 2px dashed #B4D4FF; 
-        }
-        
-        label { 
-            font-size: 11px; 
-            font-weight: 800; 
-            color: var(--dark); 
-            text-transform: uppercase; 
-            margin-left: 5px; 
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        input, select, textarea { 
-            padding: 12px 15px; 
-            border-radius: 15px; 
-            border: 2px solid #E2E8F0; 
-            width: 100%; 
-            font-size: 14px; 
-            outline: none; 
-            transition: all 0.3s ease;
-            color: var(--dark);
-            background-color: white;
-        }
-        
-        input:focus, select:focus, textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
-        }
-        
-        .btn-main { 
-            background: var(--primary); 
-            color: white; 
-            border: none; 
-            padding: 15px; 
-            border-radius: 15px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            margin-top: 10px; 
-            text-transform: uppercase; 
-            width: 100%; 
-            font-size: 14px;
-            box-shadow: 0 6px 12px rgba(74, 144, 226, 0.2);
-            transition: all 0.2s ease;
-        }
-        
-        .btn-main:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(74, 144, 226, 0.3);
-        }
-
-        .btn-next { 
-            background: #FF9F43; 
-            color: white; 
-            padding: 16px; 
-            border-radius: 18px; 
-            text-align: center; 
-            text-decoration: none; 
-            display: none; 
-            font-weight: 800; 
-            margin-bottom: 15px; 
-            text-transform: uppercase; 
-            font-size: 13px; 
-            box-shadow: 0 6px 12px rgba(255, 159, 67, 0.2);
-            transition: all 0.2s ease;
-        }
-        
-        .btn-next:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(255, 159, 67, 0.3);
-        }
-
-        .tarjeta { 
-            background: white; 
-            border-radius: 18px; 
-            padding: 15px; 
-            margin-bottom: 12px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            border-left: 6px solid var(--primary); 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
-            transition: all 0.3s ease;
-        }
-        
-        .info b { 
-            display: block; 
-            color: var(--dark); 
-            font-size: 14px; 
-            text-transform: uppercase; 
-            margin-bottom: 4px;
-        }
-        
-        .info span { 
-            font-size: 12px; 
-            color: #64748B; 
-            display: block; 
-            margin-bottom: 2px;
-        }
-
-        .actions { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 8px; 
-            align-items: flex-end; 
-        }
-        
-        .btn-send { 
-            background: var(--wa); 
-            color: white; 
-            text-decoration: none; 
-            padding: 8px 16px; 
-            border-radius: 20px; 
-            font-size: 11px; 
-            font-weight: bold; 
-            box-shadow: 0 4px 8px rgba(37, 211, 102, 0.2);
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-        
-        .btn-send:hover { background: #20ba59; }
-        
-        .btn-error { 
-            background: #FFF5F5; 
-            color: #FF6B6B; 
-            border: 1px solid #FFE3E3; 
-            padding: 6px 12px; 
-            border-radius: 10px; 
-            font-size: 10px; 
-            cursor: pointer; 
-            font-weight: 600;
-        }
-        
-        .btn-error:hover { background: #FFE3E3; }
-
-        #lista { 
-            max-height: 320px; 
-            overflow-y: auto; 
-            margin-top: 15px; 
-            padding-right: 5px;
-        }
-        
-        #lista::-webkit-scrollbar { width: 6px; }
-        #lista::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
-        #lista::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-        
-        #contador { 
-            text-align: center; 
-            font-size: 12px; 
-            color: #64748B; 
-            margin: 15px 0; 
-            font-weight: bold; 
-            background: #E8F0FE;
-            padding: 8px;
-            border-radius: 12px;
-            color: var(--primary);
-        }
+        :root { --primary: #2d827f; --bg: #f0f4f8; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: #333; line-height: 1.6; padding: 20px; }
+        .container { max-width: 700px; margin: auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: var(--primary); text-align: center; }
+        .intro { font-size: 0.95em; color: #666; margin-bottom: 20px; border-left: 4px solid var(--primary); padding-left: 15px; }
+        .section-title { color: var(--primary); margin-top: 30px; font-size: 1.2em; border-bottom: 2px solid var(--bg); }
+        .form-group { margin-bottom: 15px; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        button { background: var(--primary); color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-size: 18px; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+        button:hover { background: #236664; }
     </style>
 </head>
 <body>
 
-<div class="bg-gradient"></div>
-
-<div class="card">
-    <h2>👶 Recordar Citas DIT 🧸</h2>
-    
-    <div class="filtros">
-        <label>📅 Rango de Fecha:</label>
-        <div style="display: flex; gap: 8px;">
-            <input type="date" id="fechaInicio">
-            <input type="date" id="fechaFin">
-        </div>
-        
-        <label>🏥 Consultorio:</label>
-        <select id="filtroConsultorio">
-            <option value="TODOS">✨ TODOS LOS CONSULTORIOS ✨</option>
-        </select>
-
-        <label>⏰ Turno:</label>
-        <select id="filtroTurno">
-            <option value="TODOS">☀️ TODOS LOS TURNOS 🌙</option>
-            <option value="MAÑANA">☀️ MAÑANA</option>
-            <option value="TARDE">🌤️ TARDE</option>
-        </select>
-
-        <label>✍️ Mensaje Adicional:</label>
-        <textarea id="msgAdicional" rows="2" placeholder="Ej: Traer carnet de vacunación y DNI... 🌟"></textarea>
-
-        <button class="btn-main" onclick="cargarDatos()">🔍 Consultar Citados 🎈</button>
+<div class="container">
+    <h1>Cuestionario de Salud</h1>
+    <div class="intro">
+        <p>Su participación es voluntaria y anónima[cite: 5]. Ayúdenos a mejorar la atención del Centro de Salud Materno Infantil El Progreso[cite: 2].</p>
     </div>
-    
-    <p id="contador">✨ LISTO PARA CONSULTAR ✨</p>
-    <a id="btnSiguiente" href="#" target="_blank" class="btn-next" onclick="marcarSiguiente()">🚀 ENVIAR AL SIGUIENTE 👶</a>
 
-    <div id="lista"></div>
+    <form id="formEncuesta">
+        <div class="section-title">I. Ficha Sociodemográfica [cite: 8]</div>
+        <div class="form-group"><input type="number" name="edad" placeholder="Edad (años)" required></div>
+        <div class="form-group">
+            <select name="sexo">
+                <option value="">Seleccione Sexo</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+            </select>
+        </div>
+
+        <div class="section-title">II. Factores Terapéuticos [cite: 18]</div>
+        <p style="font-size: 0.8em;">(Escala: 1=Nunca, 5=Siempre) [cite: 20]</p>
+        <div class="form-group">
+            <label>1. ¿Los efectos secundarios le generan molestias?</label>
+            <input type="number" name="f1" min="1" max="5" placeholder="1-5">
+        </div>
+
+        <button type="submit" id="btnEnviar">Enviar mis respuestas</button>
+    </form>
 </div>
 
 <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzIcCvRp2RzrpiwVQj0I2px-uS5gGNgXlUOVhJv9Nkbzb6GqYOM0HO3a9FhQBnMIwRepA/exec'; // <-- Recuerda pegar tu URL aquí CITAS
-    let pacientesGlobal = [];
-    let indiceActual = 0;
+    const urlExcel = "https://script.google.com/macros/s/AKfycbzsG-1U9NxAxYec5TIO-aQYxoRq6plU4VK0xPC2Ak33AQelbwhlUIzP_xHB72Rwaobg/exec";
 
-    window.onload = async () => {
-        try {
-            const resp = await fetch(`${SCRIPT_URL}?getFiltros=true`);
-            const data = await resp.json();
-            const select = document.getElementById('filtroConsultorio');
-            if(data.consultorios) {
-                data.consultorios.forEach(c => { 
-                    if(c) select.innerHTML += `<option value="${c}">📍 ${c}</option>`; 
-                });
-            }
-        } catch(e) { console.error("Error cargando filtros"); }
-    };
-
-    async function cargarDatos() {
-        const btn = document.querySelector('.btn-main');
-        const fIniStr = document.getElementById('fechaInicio').value;
-        const fFinStr = document.getElementById('fechaFin').value;
-        const consSel = document.getElementById('filtroConsultorio').value;
-
-        if (!fIniStr || !fFinStr) return alert("Por favor, selecciona el rango de fechas 📅");
-
-        btn.innerText = "✨ BUSCANDO... 🚀";
-        btn.disabled = true;
-
-        try {
-            const url = `${SCRIPT_URL}?obtenerCitadosWeb=true&desde=${fIniStr}&hasta=${fFinStr}&cons=${encodeURIComponent(consSel)}`;
-            const resp = await fetch(url);
-            if (!resp.ok) throw new Error("Error en respuesta de red");
-            
-            const jsonResp = await resp.json();
-            
-            if (jsonResp.success && jsonResp.data) {
-                const turnoSel = document.getElementById('filtroTurno').value;
-
-                pacientesGlobal = jsonResp.data.filter(p => {
-                    const nombreP = p["NOMBRE"];
-                    if (!nombreP) return false; 
-
-                    const turnoP = (p["TURNO"] || "").toUpperCase();
-                    const cel = (p["CELULAR"] || "").toString().replace(/\D/g, "");
-                    const cumpleTurno = (turnoSel === "TODOS" || turnoP.includes(turnoSel));
-                    
-                    return cel.length >= 9 && cumpleTurno;
-                });
-
-                indiceActual = 0;
-                btn.innerText = "🔍 Consultar Citados 🎈";
-                btn.disabled = false;
-                mostrarLista();
-                prepararSiguiente();
-                
-                if(pacientesGlobal.length === 0) {
-                    alert("No se encontraron citados válidos con WhatsApp para este rango o consultorio 🧸");
-                }
-            } else {
-                throw new Error("Estructura de datos incorrecta");
-            }
-        } catch (err) {
-            console.error(err);
-            alert("Error de conexión con el servidor o al procesar los datos 💧");
-            btn.innerText = "🔍 Consultar Citados 🎈";
-            btn.disabled = false;
-        }
-    }
-
-    function mostrarLista() {
-        const div = document.getElementById('lista');
-        document.getElementById('contador').innerText = `👶 NIÑOS ENCONTRADOS: ${pacientesGlobal.length} 🧸`;
-        div.innerHTML = "";
+    document.getElementById('formEncuesta').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('btnEnviar');
+        btn.innerText = "Enviando...";
         
-        pacientesGlobal.forEach((p, i) => {
-            const item = document.createElement('div');
-            item.className = 'tarjeta';
-            item.id = `pac-row-${i}`;
-            item.innerHTML = `
-                <div class="info">
-                    <b>👶 ${p["NOMBRE"]}</b>
-                    <span>📅 Cita: ${p["FECHA DE CITA"]} | ⏰ ${p["TURNO"]}</span>
-                    <span style="font-size:10px; color:var(--primary); font-weight: 600;">📍 ${p["CONSULTORIO"]}</span>
-                </div>
-                <div class="actions">
-                    <a href="#" class="btn-send" onclick="enviarIndividual(${i})">💬 ENVIAR</a>
-                    <button class="btn-error" onclick="reportarError(${i})">❌ SIN WA</button>
-                </div>
-            `;
-            div.appendChild(item);
+        fetch(urlExcel, { method: 'POST', body: new FormData(this) })
+        .then(() => {
+            alert("¡Gracias por su valiosa información!");
+            this.reset();
+            btn.innerText = "Enviar mis respuestas";
         });
-    }
-
-    function generarLink(i) {
-        const p = pacientesGlobal[i];
-        let cel = (p["CELULAR"] || "").toString().replace(/\D/g, "");
-        if (cel.length === 9) cel = "51" + cel;
-        const extra = document.getElementById('msgAdicional').value.trim();
-        
-        const msg = `Hola, le saludamos del Centro de Salud *Castillo Grande*. Le recordamos la cita de *${p["NOMBRE"]}* para el día *${p["FECHA DE CITA"]}* en el turno *${p["TURNO"]}* (${p["CONSULTORIO"]}). RECUERDE que ahora puedes obtener tu carnet virutal por el grupo de whastpp https://chat.whatsapp.com/FELCvT889zo265G8LkVkPY ${extra ? '\n\n📌 *Nota:* ' + extra : ''}`;
-        return `https://api.whatsapp.com/send?phone=${cel}&text=${encodeURIComponent(msg)}`;
-    }
-
-    function enviarIndividual(i) { window.open(generarLink(i), '_blank'); marcarVisto(i); }
-
-    function reportarError(i) {
-        const cel = (pacientesGlobal[i]["CELULAR"] || "").toString().replace(/\D/g, "");
-        fetch(`${SCRIPT_URL}?errorNum=${cel}`, { mode: 'no-cors' });
-        marcarVisto(i, true);
-    }
-
-    function prepararSiguiente() {
-        const btn = document.getElementById('btnSiguiente');
-        if (indiceActual < pacientesGlobal.length) {
-            btn.href = generarLink(indiceActual);
-            btn.style.display = 'block';
-            const nom = pacientesGlobal[indiceActual]["NOMBRE"] || "PACIENTE";
-            btn.innerText = `🚀 SIGUIENTE: ${nom.split(' ')[0]} 👶`;
-        } else { btn.style.display = 'none'; }
-    }
-
-    function marcarSiguiente() { marcarVisto(indiceActual); indiceActual++; setTimeout(prepararSiguiente, 800); }
-
-    function marcarVisto(i, err = false) {
-        const row = document.getElementById(`pac-row-${i}`);
-        if(row) {
-            row.style.opacity = "0.35";
-            row.style.background = err ? "#fff0f0" : "#f5f5f5";
-            const b = row.querySelector('.btn-send');
-            if(b) b.style.pointerEvents = "none";
-        }
-    }
+    });
 </script>
 </body>
 </html>
