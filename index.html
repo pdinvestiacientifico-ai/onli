@@ -312,7 +312,7 @@
         </p>
         <h2>I. Consentimiento Informado</h2>
         <p class="consent-text">
-            Se le invita a participar en este estudio académico para determinar la relación entre los factores terapéuticos y la adherencia al tratamiento antirretroviral. Su participación es voluntaria, anónima y los riesgos son mínimos. La información será tratada con estricta reserva, utilizándose únicamente para fines de investigación. Al responder este cuestionario, usted acepta participar voluntariamente y autoriza el uso de su información para los fines del estudio.
+            Se le invita a participar en este estudio académico para determinar la relación entre los factores terapéuticos y la adherencia al tratamiento antirretroviral. Su participación es voluntaria y anónima. La información será tratada con estricta reserva, utilizándose únicamente para fines de investigación. Al responder este cuestionario, usted acepta participar voluntariamente y autoriza el uso de su información para los fines del estudio.
         </p>
         <div class="consent-buttons">
             <button type="button" onclick="aceptarConsentimiento()">Sí, acepto participar</button>
@@ -342,7 +342,8 @@
                     <label for="grado_instruccion">Grado de Instrucción:</label>
                     <select id="grado_instruccion" name="grado_instruccion" required>
                         <option value="">Seleccione...</option>
-                        <option value="Primaria">Primaria</option>
+                        <option value="Sin Estudios">Sin Estudios</option>
+                             <option value="Primaria">Primaria</option>
                         <option value="Secundaria">Secundaria</option>
                         <option value="Superior">Superior</option>
                     </select>
@@ -353,7 +354,8 @@
                         <option value="">Seleccione...</option>
                         <option value="Soltero">Soltero</option>
                         <option value="Conviviente/Casado">Conviviente/Casado</option>
-                        <option value="Otros">Otros</option>
+                           <option value="Divorciado">Divorciado/Separado</option>
+                        <option value="Otros">Viudo</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -370,7 +372,7 @@
                     <input type="number" id="tiempo_vih" name="tiempo_vih" required min="0" step="0.1" placeholder="Ej. 2">
                 </div>
                 <div class="form-group">
-                    <label for="tiempo_tarv">Tiempo en tratamiento (TARV):</label>
+                    <label for="tiempo_tarv">Tiempo en tratamiento (TAR):</label>
                     <input type="text" id="tiempo_tarv" name="tiempo_tarv" placeholder="Ej. 2 años o 6 meses" required>
                 </div>
                 <div class="form-group">
@@ -386,7 +388,7 @@
         <section id="seccion-instrumento1" class="card step-section">
             <h2>III. Instrumento 1: Factores Terapéuticos</h2>
             <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px;">
-                Instrucciones: Seleccione la opción que mejor represente su situación actual (1 = Nunca a 5 = Siempre).
+                Instrucciones: Seleccione la opción que mejor represente su situación actual.
             </p>
 
             <h3>Dimensión: Factores Clínicos</h3>
