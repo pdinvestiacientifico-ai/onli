@@ -6,7 +6,7 @@
     <title>Cuestionario de Investigación</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --gradient-bg: linear-gradient(135deg, #e0f7f4 0%, #f4fbf9 100%);
@@ -51,7 +51,7 @@
             position: relative;
         }
 
-        /* --- ESTILO DEL CONTADOR (SÓLO NÚMEROS) --- */
+        /* --- ESTILO DEL CONTADOR DINÁMICO --- */
         .counter-badge {
             position: absolute;
             top: -15px;
@@ -118,7 +118,6 @@
             display: inline-block;
         }
 
-        /* Sistema por pasos */
         .step-section {
             display: none;
         }
@@ -133,7 +132,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Ficha Sociodemográfica */
         .grid-form {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -170,7 +168,6 @@
             box-shadow: 0 5px 15px rgba(38, 166, 154, 0.15);
         }
 
-        /* Ítems del Cuestionario */
         .item-row {
             padding: 26px 0;
             border-bottom: 1px solid var(--border);
@@ -233,7 +230,6 @@
             box-shadow: 0 4px 12px rgba(0, 137, 123, 0.08);
         }
 
-        /* Botonera */
         .btn-container {
             text-align: center;
             margin-top: 20px;
@@ -293,36 +289,13 @@
         }
 
         @media (max-width: 600px) {
-            body {
-                padding: 15px 10px;
-            }
-            header, .card {
-                padding: 30px 20px;
-                border-radius: 20px;
-            }
-            .options-group {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-            .option-label {
-                flex-direction: row;
-                justify-content: flex-start;
-                padding: 14px 18px;
-                font-size: 0.95rem;
-            }
-            .option-label input {
-                margin-bottom: 0;
-                margin-right: 14px;
-                width: 22px;
-                height: 22px;
-            }
-            .consent-buttons {
-                grid-template-columns: 1fr;
-            }
-            h3 {
-                display: block;
-                text-align: center;
-            }
+            body { padding: 15px 10px; }
+            header, .card { padding: 30px 20px; border-radius: 20px; }
+            .options-group { grid-template-columns: 1fr; gap: 8px; }
+            .option-label { flex-direction: row; justify-content: flex-start; padding: 14px 18px; font-size: 0.95rem; }
+            .option-label input { margin-bottom: 0; margin-right: 14px; width: 22px; height: 22px; }
+            .consent-buttons { grid-template-columns: 1fr; }
+            h3 { display: block; text-align: center; }
         }
     </style>
 </head>
@@ -331,7 +304,7 @@
 <div class="container">
     
     <header id="seccion-consentimiento" class="step-section active">
-        <div class="counter-badge" id="contador-respuestas">0</div>
+        <div class="counter-badge" id="contador-respuestas">...</div>
 
         <h1>CUESTIONARIO DE INVESTIGACIÓN</h1>
         <p class="subtitle-research">
@@ -605,7 +578,7 @@
                 </div>
             </div>
             <div class="item-row">
-                <span class="item-text">3. ¿Continúa tomando aunque se sientan bien?</span>
+                <span class="item-text">3. ¿Continúa tomando aunque se sienta bien?</span>
                 <div class="options-group">
                     <label class="option-label"><input type="radio" name="a3" value="1" required><span>Nunca</span></label>
                     <label class="option-label"><input type="radio" name="a3" value="2"><span>Casi nunca</span></label>
@@ -749,23 +722,34 @@
 </div>
 
 <script>
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx9T93A8c5NFRbqbL2S9QyLWlosh6qK_NPQBqvHbm-8Urt6Tcg6OAnpQOvK9Y0KOR1H/exec'; 
+    // REEMPLAZA ESTA URL CON TU ENLACE /exec DE GOOGLE APPS SCRIPT
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw84EV23PMVJmgnt2nVrPg2KEBONCjFMgCBE0JqY2YQ6CpwjMTY3b3xms_4SnZ07dHU/exec'; 
 
-    // Función para cargar de forma segura el contador dinámico desde Google Sheets
+    // Función que lee el contador real directo de tu Excel
     function obtenerContador() {
-        fetch(`${WEB_APP_URL}?action=getCounter`)
-        .then(response => response.json())
+        fetch(`${WEB_APP_URL}?action=getCounter`, {
+            method: 'GET',
+            mode: 'cors',
+            headers: { 'Accept': 'application/json' }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Error de servidor');
+            return response.json();
+        })
         .then(data => {
             if(data && data.total !== undefined) {
                 document.getElementById('contador-respuestas').innerText = data.total;
+            } else {
+                document.getElementById('contador-respuestas').innerText = "0";
             }
         })
         .catch(error => {
-            console.error('Error al obtener el contador:', error);
+            console.error('Error al obtener el contador real:', error);
+            document.getElementById('contador-respuestas').innerText = "0";
         });
     }
 
-    // Inicializar la carga del contador al renderizar el documento
+    // Se ejecuta al cargar el documento en cualquier momento y lugar
     window.addEventListener('DOMContentLoaded', obtenerContador);
 
     function cambiarPaso(seccionId) {
@@ -834,11 +818,14 @@
             alert('¡Cuestionario enviado con éxito! Muchas gracias por su valiosa participación.');
             document.getElementById('investigacionForm').reset();
             
-            // Incremento estético automático e inmediato tras guardar la respuesta
+            // Incremento estético instantáneo tras guardar
             const currentCount = parseInt(document.getElementById('contador-respuestas').innerText) || 0;
             document.getElementById('contador-respuestas').innerText = currentCount + 1;
             
             cambiarPaso('seccion-consentimiento');
+            
+            // Re-validar con el servidor pasados 2 segundos
+            setTimeout(obtenerContador, 2000);
         })
         .catch(error => {
             console.error('Error:', error);
