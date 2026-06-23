@@ -3,65 +3,444 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encuesta de Salud - Centro El Progreso</title>
+    <title>Cuestionario de Investigación</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #2d827f; --bg: #f0f4f8; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: #333; line-height: 1.6; padding: 20px; }
-        .container { max-width: 700px; margin: auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1 { color: var(--primary); text-align: center; }
-        .intro { font-size: 0.95em; color: #666; margin-bottom: 20px; border-left: 4px solid var(--primary); padding-left: 15px; }
-        .section-title { color: var(--primary); margin-top: 30px; font-size: 1.2em; border-bottom: 2px solid var(--bg); }
-        .form-group { margin-bottom: 15px; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
-        button { background: var(--primary); color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-size: 18px; cursor: pointer; margin-top: 20px; transition: 0.3s; }
-        button:hover { background: #236664; }
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --accent: #eff6ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header, .card {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            margin-bottom: 24px;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .consent-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-align: justify;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            color: #1e3a8a;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin: 20px 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Formulario Sociodemográfico */
+        .grid-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Tablas / Ítems de escala */
+        .item-row {
+            padding: 15px 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .item-row:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        .item-text {
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .options-group {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            text-align: center;
+        }
+
+        .option-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .option-label input {
+            margin-bottom: 6px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        /* Botón de Envío */
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        button:disabled {
+            background-color: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        #loading {
+            display: none;
+            margin-top: 15px;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Responsivo para móviles */
+        @media (max-width: 600px) {
+            .options-group {
+                grid-template-columns: 1fr;
+                text-align: left;
+                gap: 10px;
+                padding-left: 10px;
+            }
+            .option-label {
+                flex-direction: row;
+                font-size: 0.9rem;
+            }
+            .option-label input {
+                margin-bottom: 0;
+                margin-right: 10px;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Cuestionario de Salud</h1>
-    <div class="intro">
-        <p>Su participación es voluntaria y anónima[cite: 5]. Ayúdenos a mejorar la atención del Centro de Salud Materno Infantil El Progreso[cite: 2].</p>
-    </div>
+    <header>
+        <h1>Factores Terapéuticos y Adherencia al Tratamiento Antirretroviral</h1>
+        <p class="consent-text">
+            <strong>Consentimiento Informado:</strong> Se le invita a participar en este estudio académico de forma voluntaria y anónima. La información será tratada con estricta reserva y con fines exclusivos de investigación. Al responder este cuestionario, usted acepta participar voluntariamente.
+        </p>
+    </header>
 
-    <form id="formEncuesta">
-        <div class="section-title">I. Ficha Sociodemográfica [cite: 8]</div>
-        <div class="form-group"><input type="number" name="edad" placeholder="Edad (años)" required></div>
-        <div class="form-group">
-            <select name="sexo">
-                <option value="">Seleccione Sexo</option>
-                <option value="Masculino">Masculino</option>
-                <option value="Femenino">Femenino</option>
-            </select>
+    <form id="investigacionForm">
+        <section class="card">
+            <h2>II. Ficha Sociodemográfica</h2>
+            <div class="grid-form">
+                <div class="form-group">
+                    <label for="edad">Edad (años):</label>
+                    <input type="number" id="edad" name="edad" required min="18" max="100">
+                </div>
+                <div class="form-group">
+                    <label for="sexo">Sexo:</label>
+                    <select id="sexo" name="sexo" required>
+                        <option value="">Seleccione...</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="grado_instruccion">Grado de Instrucción:</label>
+                    <select id="grado_instruccion" name="grado_instruccion" required>
+                        <option value="">Seleccione...</option>
+                        <option value="Primaria">Primaria</option>
+                        <option value="Secundaria">Secundaria</option>
+                        <option value="Superior">Superior</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="estado_civil">Estado Civil:</label>
+                    <select id="estado_civil" name="estado_civil" required>
+                        <option value="">Seleccione...</option>
+                        <option value="Soltero">Soltero</option>
+                        <option value="Conviviente/Casado">Conviviente/Casado</option>
+                        <option value="Otros">Otros</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="situacion_laboral">Situación Laboral:</label>
+                    <select id="situacion_laboral" name="situacion_laboral" required>
+                        <option value="">Seleccione...</option>
+                        <option value="Empleado">Empleado</option>
+                        <option value="Independiente">Independiente</option>
+                        <option value="Desempleado">Desempleado</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tiempo_vih">Tiempo con diagnóstico VIH (años):</label>
+                    <input type="number" id="tiempo_vih" name="tiempo_vih" required min="0" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label for="tiempo_tarv">Tiempo en TARV (meses/años):</label>
+                    <input type="text" id="tiempo_tarv" name="tiempo_tarv" placeholder="Ej: 2 años o 6 meses" required>
+                </div>
+                <div class="form-group">
+                    <label for="distrito">Distrito de residencia:</label>
+                    <input type="text" id="distrito" name="distrito" required>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>III. Instrumento 1: Factores Terapéuticos</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
+                Escala: 1=Nunca, 2=Casi nunca, 3=A veces, 4=Casi siempre, 5=Siempre
+            </p>
+
+            <h3>Dimensión: Factores Clínicos</h3>
+            <div id="factores-clinicos"></div>
+
+            <h3>Dimensión: Factores Psicosociales</h3>
+            <div id="factores-psicosociales"></div>
+
+            <h3>Dimensión: Factores Institucionales</h3>
+            <div id="factores-institucionales"></div>
+        </section>
+
+        <section class="card">
+            <h2>IV. Instrumento 2: Adherencia al Tratamiento</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px;">
+                Escala: 1=Nunca, 2=Casi nunca, 3=A veces, 4=Casi siempre, 5=Siempre
+            </p>
+
+            <h3>Dimensión: Cumplimiento Farmacológico</h3>
+            <div id="adherencia-farmaco"></div>
+
+            <h3>Dimensión: Continuidad del Tratamiento</h3>
+            <div id="adherencia-continuidad"></div>
+
+            <h3>Dimensión: Autocuidado y Compromiso</h3>
+            <div id="adherencia-autocuidado"></div>
+        </section>
+
+        <div class="btn-container">
+            <button type="submit" id="submitBtn">Enviar Cuestionario</button>
+            <div id="loading">Enviando respuestas de forma segura... por favor espere.</div>
         </div>
-
-        <div class="section-title">II. Factores Terapéuticos [cite: 18]</div>
-        <p style="font-size: 0.8em;">(Escala: 1=Nunca, 5=Siempre) [cite: 20]</p>
-        <div class="form-group">
-            <label>1. ¿Los efectos secundarios le generan molestias?</label>
-            <input type="number" name="f1" min="1" max="5" placeholder="1-5">
-        </div>
-
-        <button type="submit" id="btnEnviar">Enviar mis respuestas</button>
     </form>
 </div>
 
 <script>
-    const urlExcel = "https://script.google.com/macros/s/AKfycbzAlsCtw4GJhCpuyu6PcbHuc6_3T5NG7UA8_l093edd_dW7CHi0z9g7QtP7CO1InHEC/exec";
+    // Configuración de los Ítems
+    const preguntasFactores = {
+        clinicos: [
+            "¿Los efectos secundarios le generan molestias?",
+            "¿Infecciones/enfermedades afectan su tratamiento?",
+            "¿El cansancio dificulta asistir a controles?",
+            "¿Si se siente mejor, piensa en dejar el tratamiento?",
+            "¿La cantidad de medicamentos es difícil de manejar?"
+        ],
+        psicosociales: [
+            "¿Estrés, tristeza o preocupación afectan su continuidad?",
+            "¿Recibe apoyo emocional de familia o cercanos?",
+            "¿El miedo al rechazo o discriminación influye?",
+            "¿Se siente motivado a continuar por su salud?",
+            "¿Puede continuar pese a problemas personales?"
+        ],
+        institucionales: [
+            "¿El horario de atención le facilita asistir?",
+            "¿Recibe sus medicamentos oportunamente?",
+            "¿El personal le brinda atención respetuosa?",
+            "¿Recibe orientación clara sobre su tratamiento?",
+            "¿Siete confianza y privacidad en el servicio?"
+        ]
+    };
 
-    document.getElementById('formEncuesta').addEventListener('submit', function(e) {
+    const preguntasAdherencia = {
+        farmaco: [
+            "¿Toma sus medicamentos en el horario indicado?",
+            "¿Toma la cantidad completa indicada?",
+            "¿Continúa tomando aunque se sienta bien?",
+            "¿Recuerda tomar sus medicamentos diariamente?",
+            "¿Lleva sus medicamentos consigo al salir o viajar?"
+        ],
+        continuidad: [
+            "¿Asiste a sus citas y controles en fechas programadas?",
+            "¿Recoge medicamentos en las fechas indicadas?",
+            "¿Mantiene el tratamiento sin abandonarlo?",
+            "¿Sigue las recomendaciones del personal de salud?",
+            "¿Considera importante asistir a sus controles?"
+        ],
+        autocuidado: [
+            "¿Realiza acciones para cuidar su salud diariamente?",
+            "¿Mantiene hábitos saludables para su tratamiento?",
+            "¿Considera importante continuar el tratamiento?",
+            "¿Busca orientación cuando tiene dudas?",
+            "¿Se siente comprometido con su vida y bienestar?"
+        ]
+    };
+
+    const opcionesEscala = ["Nunca", "Casi nunca", "A veces", "Casi siempre", "Siempre"];
+
+    // Función para renderizar preguntas de manera limpia y elegante
+    function renderPreguntas(containerId, listaPreguntas, prefijoInput, indexInicial) {
+        const contenedor = document.getElementById(containerId);
+        listaPreguntas.forEach((pregunta, index) => {
+            const numeroPregunta = indexInicial + index;
+            const itemRow = document.createElement('div');
+            itemRow.className = 'item-row';
+            
+            let opcionesHTML = '';
+            opcionesEscala.forEach((opcion, i) => {
+                opcionesHTML += `
+                    <label class="option-label">
+                        <input type="radio" name="${prefijoInput}${numeroPregunta}" value="${i+1}" required>
+                        <span>${opcion}</span>
+                    </label>
+                `;
+            });
+
+            itemRow.innerHTML = `
+                <span class="item-text">${numeroPregunta}. ${pregunta}</span>
+                <div class="options-group">${opcionesHTML}</div>
+            `;
+            contenedor.appendChild(itemRow);
+        });
+    }
+
+    // Renderizar todas las preguntas manteniendo el orden exacto de tu script (1 al 15)
+    renderPreguntas('factores-clinicos', preguntasFactores.clinicos, 'f', 1);
+    renderPreguntas('factores-psicosociales', preguntasFactores.psicosociales, 'f', 6);
+    renderPreguntas('factores-institucionales', preguntasFactores.institucionales, 'f', 11);
+
+    renderPreguntas('adherencia-farmaco', preguntasAdherencia.farmaco, 'a', 1);
+    renderPreguntas('adherencia-continuidad', preguntasAdherencia.continuidad, 'a', 6);
+    renderPreguntas('adherencia-autocuidado', preguntasAdherencia.autocuidado, 'a', 11);
+
+    // Envío del Formulario a Google Sheets
+    document.getElementById('investigacionForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        const btn = document.getElementById('btnEnviar');
-        btn.innerText = "Enviando...";
         
-        fetch(urlExcel, { method: 'POST', body: new FormData(this) })
-        .then(() => {
-            alert("¡Gracias por su valiosa información!");
-            this.reset();
-            btn.innerText = "Enviar mis respuestas";
+        const submitBtn = document.getElementById('submitBtn');
+        const loadingText = document.getElementById('loading');
+        
+        submitBtn.disabled = true;
+        loadingText.style.display = 'block';
+
+        // REEMPLAZA ESTE ENLACE con el URL de Ejecución de tu Google Web App
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwHl2Wl_RNTE6MQK9jav_GscyYTc8fC1ZLjTSHn6kdP4N-BdsaVmqQYbX-8v082QdVv/exec';
+
+        const formData = new FormData(this);
+        const urlParams = new URLSearchParams(formData);
+
+        fetch(WEB_APP_URL, {
+            method: 'POST',
+            body: urlParams,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then(response => response.text())
+        .then(result => {
+            if(result.trim() === "Éxito") {
+                alert('¡Cuestionario enviado con éxito! Muchas gracias por su valiosa participación.');
+                document.getElementById('investigacionForm').reset();
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            } else {
+                alert('Hubo un problema al guardar los datos. Inténtalo de nuevo.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error de conexión. Asegúrate de haber configurado bien el URL del script.');
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            loadingText.style.display = 'none';
         });
     });
 </script>
+
 </body>
 </html>
